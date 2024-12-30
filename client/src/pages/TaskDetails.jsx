@@ -6,4 +6,4 @@ const TaskDetails = () => {
   )
 }
 
-export default TaskDetails
+export default TaskDetails;
