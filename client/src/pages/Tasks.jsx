@@ -8,7 +8,9 @@ import Button from '../components/Button';
 import { IoMdAdd } from 'react-icons/io';
 import Tabs from '../components/Tabs';
 import TaskTitle from '../components/TaskTitle';
-
+import BoardView from '../components/BoardView';
+import { tasks } from '../assets/data';
+import Table from '../components/task/Table';
 
 const TABS = [
   { title: "Board View", icon: <MdGridView /> },
@@ -59,7 +61,12 @@ const Tasks = () => {
           )}
 
           {
-            selected ===0 ? <div></div> : <div></div>
+            selected !== 1 ? <BoardView tasks={tasks}/> : 
+            <div className='w-full'>
+              <Table
+              tasks={tasks}
+              />
+            </div>
           }
         </Tabs>
       </div>
