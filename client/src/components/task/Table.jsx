@@ -9,6 +9,7 @@ import { BiMessageAltDetail } from 'react-icons/bi';
 import { FaList } from 'react-icons/fa';
 import UserInfo from '../UserInfo';
 import Button from '../Button';
+import ConfirmatioDialog from '../Dialogs';
 
 
 
@@ -18,10 +19,15 @@ const ICONS ={
     low: <MdKeyboardArrowDown />,
 }
 const Table = ({ tasks }) => {
-    const [openDialogue, setOpenDialogue] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
     const [selected, setSelected] = useState(null);
 
-    const deleteClicks = () => {};
+    const deleteClicks = (id) => {
+      setSelected(id);
+      setOpenDialog(true);
+    };
+
+    const deleteHandler = () => {};
 
 const TableHeader = () => (
     <thead className='w-full border-b border-gray-300'>
@@ -135,11 +141,11 @@ const TableRow = ({ task }) => (
       </div>
     
       {/* To Do */}
-      {/* <ConfirmatioDialog
+      <ConfirmatioDialog
         open={openDialog}
         setOpen={setOpenDialog}
         onClick={deleteHandler}
-      /> */}
+      />
     </>
   );
 };
