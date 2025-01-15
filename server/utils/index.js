@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
-const dbConnection = async ()=> {
+export const dbConnection = async ()=> {
     try {
         await mongoose.connect(process.env.MONGODB_URI);
 
@@ -13,12 +13,10 @@ const dbConnection = async ()=> {
     }
 };
 
-export default dbConnection;
-
-
 export const createJWT = (res, userId)=> {
-    const token = jwt.sign({userId}, process.env,JWT_SECRET, {
-        expiresIn: "1d",});
+    const token = jwt.sign({userId}, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+    });
 
     res.cookie("token", token, {
         httpOnly: true,
@@ -26,4 +24,4 @@ export const createJWT = (res, userId)=> {
         sameSite: "strict", // prevent CSRF attacks
         maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day
     });
-}
+};
