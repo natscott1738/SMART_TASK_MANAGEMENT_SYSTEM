@@ -6,20 +6,41 @@ import Textbox from './Textbox';
 import Loading from './Loader';
 import Button from './Button';
 import ModalWrapper from "./ModalWrapper";
+import { useRegisterMutation } from '../redux/slices/api/authApiSlice.js';
+import { toast } from "sonner";
+import { useUpdateUserMutation } from '../redux/slices/api/userApiSlice.js';
 
 const AddUser = ({open, setOpen, userData}) => {
 
     let defaultValues = userData ?? {};
 
     const { user } = useSelector((state) => state.auth);
-    const isLoading = false, isUpdating = false;
+   
     const {
         register,
         handleSubmit,
         formState: { errors },
       } = useForm({ defaultValues });
 
-      const handleOnSubmit = ()=> {};
+      const [addNewUser, {isLoading}] = useRegisterMutation();
+      const [updateUser, {isLoading: isUpdating}] = useUpdateUserMutation()
+      const handleOnSubmit = async (data)=> {
+        try {
+          if(userData){
+
+          }else {
+            const result = await addNewUser({...data, password: data.email}).unwrap();
+
+            toast.success("New user has been added successfully");
+          }
+
+          setTimeout(() => {
+            setOpen(false)
+          }, 2000);
+        } catch (error) {
+          toast.error("Something went wrong!");
+        }
+      };
     
   return (
     <>
