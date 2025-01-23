@@ -1,3 +1,4 @@
+import { UserAction } from "../../../components/Dialogs.jsx";
 import { apiSlice } from "../apiSlice.js";
 
 const USER_URL = "/user"
@@ -13,15 +14,30 @@ export const userApiSlice = apiSlice.injectEndpoints({
             }),
         }),
 
-        register: builder.mutation({
+        getTeamList: builder.query({
+            query: ()=> ({
+                url: `${USER_URL}/get-team`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
+
+        deleteUser: builder.mutation({
+            query: (id)=> ({
+                url: `${USER_URL}/${id}`,
+                method: "DELETE",
+                credentials: "include",
+            }),
+        }),
+
+        UserAction: builder.mutation({
             query: (data)=> ({
-                url: `${USER_URL}/register`,
-                method: "POST",
-                body: data,
+                url: `${USER_URL}/${data.id}`,
+                method: "PUT",
                 credentials: "include",
             }),
         }),
     }),
 });
 
-export const { useUpdateUserMutation }= userApiSlice
+export const { useUpdateUserMutation, useGetTeamListQuery, useDeleteUserMutation, useUserActionMutation }= userApiSlice
