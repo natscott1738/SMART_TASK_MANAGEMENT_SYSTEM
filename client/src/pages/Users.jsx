@@ -30,7 +30,7 @@ const Users = () => {
       });
 
       refetch()     
-      toast.success(res.data.message);
+      toast.success(result.data.message);
       setSelected(null);
       setTimeout(() => {
         setOpenAction(false);

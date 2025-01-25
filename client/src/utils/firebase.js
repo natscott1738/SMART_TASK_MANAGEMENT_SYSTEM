@@ -5,13 +5,13 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
-  authDomain: "task-manager-189de.firebaseapp.com",
-  projectId: "task-manager-189de",
-  storageBucket: "task-manager-189de.firebasestorage.app",
-  messagingSenderId: "657883912596",
-  appId: "1:657883912596:web:7ad51207be3ad70b8ed781"
+  apiKey: "AIzaSyD7R93q0DjRMa1Gk_hk5dqtwFdWxGTG1Rw",
+  authDomain: "smart-task-management-system.firebaseapp.com",
+  projectId: "smart-task-management-system",
+  storageBucket: "smart-task-management-system.firebasestorage.app",
+  messagingSenderId: "29320773177",
+  appId: "1:29320773177:web:b5b4cf107edac9aea0d7e8"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);

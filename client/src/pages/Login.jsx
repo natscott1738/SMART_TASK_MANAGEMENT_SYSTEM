@@ -53,14 +53,14 @@ console.log(user);
       <span className='flex gap1 py-1 px-3 border rounded-full text-sm md:text-base border-gray-300 text-gray-600'>
         You can manage all your tasks here at ease!
       </span>
-      <p className='flex flex-col gap-0 md:gap-4 text-4xl md:text-6xl 2xl:text-7xl font-black text-center text-blue-700'>
+      <p className='flex flex-col gap-0 md:gap-4 text-4xl md:text-6xl 2xl:text-7xl font-black text-center text-purple-700'>
         <span>Welcome!</span>
         <span>Smart Task Management System</span>
       </p>
 
-      <div className='cell'>
+      {/*<div className='cell'>
         <div className='circle rotate-in-up-left'></div>
-      </div>
+      </div>*/}
     </div>
    </div>
    
@@ -71,13 +71,13 @@ console.log(user);
       className='form-container w-full md:w-[400px] flex flex-col gap-y-8 bg-white px-10 pt-14 pb-14'
       >
         <div className=''>
-        <p className='text-blue-600 text-3xl font-bold text-center'>
+        <p className='text-purple-600 text-3xl font-bold text-center'>
           Hello...Glad to see you back !
 
         </p>
-        <p className='text-center text-base text-gray-700'>
+        {/*<p className='text-center text-base text-gray-700'>
           Ensure your logins are secure
-        </p>
+        </p>*/}
         </div>
 
         <div className='flex flex-col gap-y-5'>

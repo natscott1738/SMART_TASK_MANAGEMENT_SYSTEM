@@ -1,19 +1,20 @@
 import React from 'react';
 import {
-  MdAdminPanelSettings,
+  MdOutlineDoneAll,
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
   MdKeyboardDoubleArrowUp,
 } from "react-icons/md";
-import { LuClipboardPen } from "react-icons/lu";
-import { FaNewspaper, FaUsers } from "react-icons/fa";
-import { FaArrowsToDot } from "react-icons/fa6";
+import { LuLoader } from "react-icons/lu";
+import { FaTasks, FaUsers, FaClipboard } from "react-icons/fa";
+// import { FaArrowsToDot } from "react-icons/fa6";
 import moment from "moment";
 import clsx from 'clsx';
 import Chart from "../components/Chart";
-import { summary } from '../assets/data';
 import { TASK_TYPE, PRIORITYSTYLES, BGS, getInitials } from "../utils";
 import UserInfo from '../components/UserInfo';
+import { useGetDashboardStatsQuery } from '../redux/slices/api/taskApiSlice.js'
+import Loading from '../components/Loader';
 
 const TaskTable = ({ tasks }) => {
   const ICONS = {
@@ -143,36 +144,48 @@ const UserTable = ({users}) => {
 };
 
 const Dashboard = () => {
-  const totals = summary.tasks;
+
+  const {data, isLoading, error} = useGetDashboardStatsQuery()
+  console.log('Dashboard Data:', data);
+console.log('Error:', error);
+
+  if (isLoading)
+    return (
+      <div className='py-10'>
+        <Loading />
+      </div>
+      );
+
+   const totals = data?.tasks;
 
   const stats = [
     {
       _id: "1",
       label: "TOTAL TASK",
-      total: summary?.totalTasks || 0,
-      icon: <FaNewspaper />,
+      total: data?.totalTasks || 0,
+      icon: <FaTasks />,
       bg: "bg-[#1d4ed8]",
     },
     {
       _id: "2",
       label: "COMPLTED TASK",
-      total: totals["completed"] || 0,
-      icon: <MdAdminPanelSettings />,
+      total: totals?.["completed"] || 0,
+      icon: <MdOutlineDoneAll />,
       bg: "bg-[#0f766e]",
     },
     {
       _id: "3",
       label: "TASK IN PROGRESS ",
-      total: totals["in progress"] || 0,
-      icon: <LuClipboardPen />,
+      total: totals?.["in progress"] || 0,
+      icon: <LuLoader />,
       bg: "bg-[#f59e0b]",
     },
     {
       _id: "4",
       label: "TODOS",
-      total: totals["todo"],
-      icon: <FaArrowsToDot />,
-      bg: "bg-[#be185d]" || 0,
+      total: totals?.["todo"] || 0,
+      icon: <FaClipboard />,
+      bg: "bg-[#be185d]",
     },
   ];
 
@@ -213,19 +226,19 @@ const Dashboard = () => {
 
       <div className='w-full bg-white my-16 p-4 rounded shadow-sm'>
         <h4 className='text-xl text-gray-600 font-semibold'>Priority Chart</h4>
-        <Chart />
+        <Chart data={data?.graphData} />
       </div>
 
       <div className='w-full flex flex-col md:flex-row gap-4 2xl:gap-10 py-8'>
       {/* left */}
       
         <TaskTable 
-        tasks={summary.last10Task}
+        tasks={data?.last10Tasks}
         />
 
       {/* right */}
 
-      <UserTable users={summary.users} />
+      <UserTable users={data?.users} />
 
       </div>
     </div>

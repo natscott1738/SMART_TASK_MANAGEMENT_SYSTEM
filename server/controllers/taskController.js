@@ -1,4 +1,5 @@
-import Notice from '../models/notification.js'
+import Notice from '../models/notification.js';
+import User from "../models/user.js";
 import Task from '../models/task.js';
 
 export const createTask = async (req, res) => {
@@ -148,7 +149,7 @@ export const dashboardStatistics = async (req, res) => {
         })
         .sort({_id: -1}) ;
 
-        const users = await User.find ({isActive}) .select("name title role isAdmin createdAt").limit(10).sort({_id: -1});
+        const users = await User.find ({isActive: true}) .select("name title role isAdmin createdAt").limit(10).sort({_id: -1});
 
         // group task by stage and calc count
         const groupTasks = allTasks.reduce((result, task)=> {
