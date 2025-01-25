@@ -17,6 +17,7 @@ import { useCreateTaskMutation,
          useUpdateTaskMutation,
           } from "../../redux/slices/api/taskApiSlice.js"
 import { toast } from "sonner";
+import { dateFormatter } from "../../utils/index.js"
 
 
 const LISTS = ["TODO", "IN PROGRESS", "COMPLETED"];
@@ -25,13 +26,21 @@ const PRIORITY = ["HIGH", "MEDIUM", "NORMAL", "LOW"];
 const uploadedFileURLs = [];
 
 const AddTask = ({open, setOpen, task}) => {
+  const defaultValues = {
+    title: task?.title || "",
+    date: dateFormatter(task?.date || new Date()),
+    team: [],
+    stage: "",
+    priority: "",
+    assets: [],
+  };
 
     
     const {
       register, 
       handleSubmit, 
       formState: { errors },
-    } = useForm();
+    } = useForm({defaultValues});
     const [team, setTeam] = useState(task?.team || []);
     const [stage, setStage] = useState(task?.stage?.toUpperCase() || LISTS[0]);
     const [priority, setPriority] = useState(
@@ -43,7 +52,7 @@ const AddTask = ({open, setOpen, task}) => {
     const [uploading, setUploading] = useState(false)
 
     const [createTask, { isLoading }] = useCreateTaskMutation();
-    const [uploadTask, { isLoading: isUpdating }] = useUpdateTaskMutation();
+    const [updateTask, { isLoading: isUpdating }] = useUpdateTaskMutation();
     const URLS = task?.assets ? [...task.assets] : [];
 
     const submitHandler = async (data) => {
@@ -137,7 +146,7 @@ const AddTask = ({open, setOpen, task}) => {
             />
 
             <UserList 
-            setEeam = {setTeam}
+            setTeam = {setTeam}
             team = {team}
             />
 
